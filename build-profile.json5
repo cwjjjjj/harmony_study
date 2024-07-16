@@ -1,17 +1,31 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/jike/.ohos/config/default_ArkTS_study_xvxHNa35gq6sPGPqj_c3ZkFCqLauIOI5ROHnXfhhSt0=.cer",
+          "storePassword": "0000001BDC9E6B03AA838CFE3A8FA46826D4D45E57890232BFF2E55A4A5AB30C0E4417202143DAE2497385",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BFB93AB1A94DD5D0F2E1A7209368B3E229AFEA54837499EA11C5A1E03292F68F234C9942118C599",
+          "profile": "/Users/jike/.ohos/config/default_ArkTS_study_xvxHNa35gq6sPGPqj_c3ZkFCqLauIOI5ROHnXfhhSt0=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/jike/.ohos/config/default_ArkTS_study_xvxHNa35gq6sPGPqj_c3ZkFCqLauIOI5ROHnXfhhSt0=.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-                  "compatibleSdkVersion": "5.0.0(12)",
-            "runtimeOS":"HarmonyOS",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
       }
     ],
     "buildModeSet": [
       {
-          "name": "debug",
+        "name": "debug",
       },
       {
         "name": "release"
@@ -19,8 +33,7 @@
     ]
   },
   "modules": [
-
-  {
+    {
       "name": "entry",
       "srcPath": "./entry",
       "targets": [
@@ -31,5 +44,6 @@
           ]
         }
       ]
-    }]
+    }
+  ]
 }

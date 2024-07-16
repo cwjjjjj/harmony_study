@@ -4,7 +4,7 @@ struct Widget1Card {
   /*
    * The title.
    */
-  readonly TITLE: string = 'Hello Worldddd';
+  readonly TITLE: string = 'Hello World对对对ddd';
   /*
    * The action type.
    */
@@ -29,14 +29,13 @@ struct Widget1Card {
   build() {
     Row() {
       Column() {
-        Text(this.TITLE)
-          .fontSize($r('app.float.font_size'))
-          .fontWeight(FontWeight.Medium)
-          .fontColor($r('app.color.item_title_font'))
+        Image($r('app.media.god')).translate({x:'8%',y:'20%'})
       }
-      .width(this.FULL_WIDTH_PERCENT)
     }
     .height(this.FULL_HEIGHT_PERCENT)
+    .width(this.FULL_WIDTH_PERCENT)
+    .backgroundImage($r('app.media.bg'))
+    .backgroundImageSize({width:'100%',height:'100%'})
     .onClick(() => {
       postCardAction(this, {
         action: this.ACTION_TYPE,

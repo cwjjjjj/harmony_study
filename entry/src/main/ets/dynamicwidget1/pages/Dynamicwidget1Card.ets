@@ -4,7 +4,7 @@ struct Dynamicwidget1Card {
   /*
    * The title.
    */
-  readonly TITLE: string = 'Hello World';
+  readonly TITLE: string = 'Hello Worldtttt是事实t';
   /*
    * The action type.
    */

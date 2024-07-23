@@ -6,9 +6,9 @@
         "type": "HarmonyOS",
         "material": {
           "certpath": "/Users/jike/.ohos/config/default_ArkTS_study_xvxHNa35gq6sPGPqj_c3ZkFCqLauIOI5ROHnXfhhSt0=.cer",
-          "storePassword": "0000001BDC9E6B03AA838CFE3A8FA46826D4D45E57890232BFF2E55A4A5AB30C0E4417202143DAE2497385",
+          "storePassword": "0000001AC2B14384B5D3A657A1EDD800E9EA740C8373F8037F26A214F7D5263F81B5AAB7DA76430003AA",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001BFB93AB1A94DD5D0F2E1A7209368B3E229AFEA54837499EA11C5A1E03292F68F234C9942118C599",
+          "keyPassword": "0000001A3E6CB7681F25C2E4C629AAD35B3F336201D1614C78C582EFAC5465F40DFAC98B9D341F482EE8",
           "profile": "/Users/jike/.ohos/config/default_ArkTS_study_xvxHNa35gq6sPGPqj_c3ZkFCqLauIOI5ROHnXfhhSt0=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/jike/.ohos/config/default_ArkTS_study_xvxHNa35gq6sPGPqj_c3ZkFCqLauIOI5ROHnXfhhSt0=.p12"

@@ -29,12 +29,12 @@ struct Widget1Card {
   build() {
     Row() {
       Column() {
-        Image($r('app.media.god')).translate({x:'8%',y:'20%'})
+        Image($r('app.media.wealth_god')).translate({x:'8%',y:'20%'})
       }
     }
     .height(this.FULL_HEIGHT_PERCENT)
     .width(this.FULL_WIDTH_PERCENT)
-    .backgroundImage($r('app.media.bg'))
+    .backgroundImage($r('app.media.wealth_god_bg'))
     .backgroundImageSize({width:'100%',height:'100%'})
     .onClick(() => {
       postCardAction(this, {

@@ -35,6 +35,10 @@
     {
       "name": "Dynamicwidget1_display_name",
       "value": "Dynamicwidget1"
+    },
+    {
+      "name": "network_reason",
+      "value": "get net work permission reason"
     }
   ]
 }

@@ -1,9 +1,13 @@
 import prompt from '@ohos.prompt';
+import http from '@ohos.net.http';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { PoetryDataResponseType } from '../types';
 
 class User {
   nickname?: string
   age?: number
 }
+const DATA_URL = 'https://widget-box-api-beta.codefuture.top/v1/widgets/hitokoto-dark/get'
 
 @Styles function sameStyle() {
   .backgroundColor(Color.Green)
@@ -11,6 +15,7 @@ class User {
     console.log('123')
   })
 }
+
 
 @Entry
 @Component
@@ -69,19 +74,43 @@ struct Index {
         Text('no user')
       }
 
-      Text(this.message)
-        .id('HelloWorld')
+      Text('http get')
+        .id('http')
         .fontSize(50)
         .fontWeight(FontWeight.Bold)
         .alignRules({
           center: { anchor: '__container__', align: VerticalAlign.Center },
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        }).sameStyle()
+        }).sameStyle().onClick(()=>{
+        let httpRequest = http.createHttp()
+        httpRequest.request(DATA_URL,{
+          header: {
+            'Content-Type': 'application/json'
+          },
+          expectDataType: http.HttpDataType.OBJECT
+        }).then((res:http.HttpResponse)=>{
+          if(!res.result){
+            return
+          }
+          const response = res.result as PoetryDataResponseType
+          this.message = JSON.stringify(response.entry.title)
+          // this.message = response.entry.id
+          console.log('@@response',JSON.stringify(response),JSON.stringify(response.id),JSON.stringify(response.entry))
+        }).catch((err:BusinessError)=>{
+          console.log('@@get data err onFormEvent',JSON.stringify(err))
+          this.message = JSON.stringify(JSON.stringify(err))
+        })
+      })
+      Text(this.message)
 
       Button('button').onClick(()=>{
         this.message = this.message + '!'
         console.log('message',this.message)
       }).fontColor('red').backgroundColor('green').bindContextMenu(this.MenuBuilder, ResponseType.LongPress)
+
+      Image("https://image-qiniu.jellow.site/FvwncpBP4u-UmgOU6mt_b5S5qkUg.png")
+        .width(160)
+        .height(160)
 
       Image($r("app.media.startIcon"))
         .width(160)

@@ -17,9 +17,7 @@
       "scheduledUpdateTime": "10:30",
       "updateDuration": 1,
       "defaultDimension": "2*2",
-      "supportDimensions": [
-        "2*2"
-      ]
+      "supportDimensions": ["2*2"]
     },
     {
       "name": "Dynamicwidget1",
@@ -37,10 +35,8 @@
       "updateEnabled": false,
       "scheduledUpdateTime": "10:30",
       "updateDuration": 1,
-      "defaultDimension": "2*2",
-      "supportDimensions": [
-        "2*2"
-      ]
+      "defaultDimension": "2*4",
+      "supportDimensions": ["2*4"]
     }
   ]
 }

@@ -7,10 +7,12 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import http from '@ohos.net.http';
 import { JSON } from '@kit.ArkTS';
 import { PoetryDataResponseType } from '../types';
+import font from '@ohos.font';
+
 
 interface DataType {
-  title: string;
-  desc: string;
+  poetId: string;
+  content: string;
   author:string;
 }
 
@@ -18,6 +20,7 @@ interface DataType {
 let httpRequest: http.HttpRequest;
 
 const DATA_URL = 'https://widget-box-api.codefuture.top/v1/widgets/hitokoto-dark/get?random=true'
+const FONT_URL = 'https://other-qiniu.jellow.site/ljex8sviXGkZg2h25ITy-GuqJwKl.ttf'
 let formData: DataType
 const TAG: string = 'EntryFormAbility';
 const DOMAIN_NUMBER: number = 0xFF00;
@@ -37,13 +40,25 @@ let content = ''
 
 export default class EntryFormAbility extends FormExtensionAbility {
   // private httpRequest: http.HttpRequest;
-  //
-  // constructor() {
-  //   if(!this.httpRequest){
-  //     this.httpRequest = http.createHttp();
-  //   }
-  // }
+
+  constructor() {
+    super();
+    font.registerFont({
+      familyName:"minFont",
+      // familySrc:"../font/minFont.ttf"
+      familySrc:$rawfile('minFont.ttf')
+    });
+    // if(!this.httpRequest){
+    //   this.httpRequest = http.createHttp();
+    // }
+  }
+
   onAddForm(want: Want) {
+    font.registerFont({
+      familyName:"minFont",
+      // familySrc:"../font/minFont.ttf"
+      familySrc:$rawfile('minFont.ttf')
+    })
     // Called to return a FormBindingData object.
     let httpRequest = http.createHttp()
     httpRequest.request(DATA_URL,{
@@ -52,25 +67,23 @@ export default class EntryFormAbility extends FormExtensionAbility {
       },
       expectDataType: http.HttpDataType.OBJECT
     }).then(res=>{
-      hilog.info(DOMAIN_NUMBER, TAG, '@@[EntryFormAbility] onAddForm');
       console.log('http get data res',res,JSON.stringify(res),'@@',JSON.stringify(res.result),JSON.stringify(want))
       formData = {
-        title:'ttttest',
-        desc:JSON.stringify(res.result),
+        poetId:'ttttest',
+        content:JSON.stringify(res.result),
         author:'author'
       }
     }).catch((err:BusinessError)=>{
       console.log('get data err')
       formData = {
-        title:'ttttest',
-        desc:'on add form error',
+        poetId:'ttttest',
+        content:'on add form error',
         author:'on add form error author'
       }
-
     })
     // let formData: DataType = {
-    //   title: '鸿蒙雄起-刷新后',
-    //   desc: '鸿蒙千帆起，我要当舵手 - 刷新后'
+    //   id: '鸿蒙雄起-刷新后',
+    //   content: '鸿蒙千帆起，我要当舵手 - 刷新后'
     // };
     let id = want?.parameters?.[formInfo.FormParam.IDENTITY_KEY];
     console.log('my form id', id)
@@ -99,7 +112,6 @@ export default class EntryFormAbility extends FormExtensionAbility {
   }
 
   onFormEvent(formId: string, message: string) {
-    console.log('@@onFormEvent start',formId,message)
     let httpRequest = http.createHttp()
     httpRequest.request(DATA_URL,{
       header: {
@@ -107,20 +119,18 @@ export default class EntryFormAbility extends FormExtensionAbility {
       },
       expectDataType: http.HttpDataType.OBJECT
     }).then((res:http.HttpResponse)=>{
-      hilog.info(DOMAIN_NUMBER, TAG, '@@[EntryFormAbility] onFormEvent');
       if(!res.result){
         return
       }
       const response = res.result as PoetryDataResponseType
-      console.log('@@response on form event',JSON.stringify(response),JSON.stringify(response.entry))
       if(countPunctuation(response.entry.quotes) >= 3){
         content = response.entry.quotes.replace(/[，。？！]/g, (m) => { return m + '\n' }).slice(0, -1)
       }else{
         content = response.entry.quotes
       }
       let formData:DataType = {
-        title:response?.entry?.title ?? JSON.stringify(response?.entry),
-        desc:content ?? JSON.stringify(response?.entry),
+        poetId:response?.entry?.id ?? JSON.stringify(response?.entry),
+        content:content ?? JSON.stringify(response?.entry),
         author:response?.entry?.author ?? JSON.stringify(response?.entry),
       }
       let formInfo = formBindingData.createFormBindingData(formData)
@@ -128,8 +138,8 @@ export default class EntryFormAbility extends FormExtensionAbility {
     }).catch((err:BusinessError)=>{
       console.log('@@get data err onFormEvent',JSON.stringify(err))
       let formData:DataType = {
-        title:'ttttest',
-        desc:'error on form event' + JSON.stringify(err),
+        poetId:'ttttest',
+        content:'error on form event' + JSON.stringify(err),
         author:'author error on form event' + JSON.stringify(err),
       }
       let formInfo = formBindingData.createFormBindingData(formData)

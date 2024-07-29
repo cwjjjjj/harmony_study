@@ -4,8 +4,8 @@ const storage = new LocalStorage();
 @Component
 struct Dynamicwidget1Card {
   // 接收 EntryFormAbility 传递过来的数据
-  @LocalStorageProp("title") title: string = '';
-  @LocalStorageProp("desc") desc: string = ''
+  @LocalStorageProp("poetId") poetId: string = '';
+  @LocalStorageProp("content") content: string = ''
   @LocalStorageProp("author") author: string = ''
 
   /*
@@ -45,12 +45,12 @@ struct Dynamicwidget1Card {
     Column() {
       // content
       Row() {
-        Text(this.desc)
+        Text(this.content)
         Image($r('app.media.refresh_icon'))
         .height('16vp')
         .width('16vp')
         .onClick(() => {
-          console.log('@@ this is card',this.title,this.desc)
+          console.log('@@ this is card',this.poetId,this.content)
           postCardAction(this, {
             action: 'message',
             abilityName: this.ABILITY_NAME,
@@ -68,7 +68,7 @@ struct Dynamicwidget1Card {
     //   author
       Row(){
         Text().height('18vp').width('2vp').backgroundColor('#BB1515').margin('8vp').borderRadius('8vp')
-        Text(this.author)
+        Text(this.author).fontFamily('minFont')
       }.width('100%').justifyContent(FlexAlign.End)
 
     }
@@ -77,5 +77,19 @@ struct Dynamicwidget1Card {
     .padding('20vp')
     .backgroundImage($r('app.media.poetry_white_bg'))
     .backgroundImageSize({width:'100%',height:'100%'})
+    .onClick(async () => {
+      console.log('@@ this is card',this.poetId,this.content,JSON.stringify(globalThis))
+      globalThis.poetId = this.poetId
+      console.log('new globalthis poetid',globalThis.poetId)
+      await storage.set('poetId',this.poetId)
+
+      postCardAction(this, {
+        action: 'router',
+        abilityName: this.ABILITY_NAME,
+        params: {
+          message: this.poetId,
+        }
+      });
+    })
   }
 }
